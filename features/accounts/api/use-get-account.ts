@@ -9,7 +9,7 @@ export const useGetAccount = (id?: string) =>{
         queryKey: ["account", { id }],
         queryFn: async () =>{
             const response = await client.api.accounts[":id"].$get({
-                param: { id }
+                param: { id },
             });
 
             if(!response.ok){

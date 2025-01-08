@@ -60,6 +60,6 @@ export const columns: ColumnDef<ResponseType>[] = [
   // },
   {
     id: "actions",
-    cell: ({ row }) => <Actions /> 
+    cell: ({ row }) => <Actions id={row.original.id} /> 
   },
 ]
