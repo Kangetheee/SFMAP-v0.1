@@ -31,8 +31,8 @@ const routes = [
         label: "User Accounts",
     },
     {
-        href: "/reports",
-        label: "Reports",
+        href: "/categories",
+        label: "Category",
     },
     {
         href: "/financial-literacy",
