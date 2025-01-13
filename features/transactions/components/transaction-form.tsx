@@ -4,30 +4,28 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { AmountInput } from "@/components/amount-input";
-
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from "@/components/ui/form";
 import { Select } from "@/components/select";
 import { insertTransactionSchema } from "@/db/schema";
 import { DatePicker } from "@/components/date-picker";
 import { Textarea } from "@/components/ui/textarea";
+import { convertAmountToMiliunits } from "@/lib/utils";
 
 const formSchema = z.object({
   date: z.coerce.date(),
   accountId: z.string(),
-  categoryId: z.string().nullable().optional(),
+  categoryId: z.string().optional(),
   payee: z.string(),
   amount: z.string(),
-  notes: z.string().nullable().optional(),
+  notes: z.string().optional(),
 });
 
 const apiSchema = insertTransactionSchema.omit({
@@ -65,16 +63,21 @@ export const TransactionForm = ({
     defaultValues: defaultValues ?? {
       date: new Date(),
       accountId: "",
-      categoryId: null,
+      categoryId: "",
       payee: "",
       amount: "",
-      notes: null,
+      notes: "",
     },
   });
 
   const handleSubmit = (values: FormValues) => {
-    console.log({ values });
-    // onSubmit(values as ApiFormValues);
+    const amount = parseFloat(values.amount);
+    const amountInMiliunits = convertAmountToMiliunits(amount)
+    // console.log({values})
+    onSubmit({
+      ...values,
+      amount: amountInMiliunits,
+    });
   };
 
   const handleDelete = () => {
@@ -94,12 +97,14 @@ export const TransactionForm = ({
                 <DatePicker
                   value={field.value}
                   onChange={field.onChange}
-                  disabled={disabled} 
+                  disabled={disabled}
+                  aria-label="Transaction Date"
                 />
               </FormControl>
             </FormItem>
           )}
         />
+
         {/* Account Field */}
         <FormField
           name="accountId"
@@ -115,6 +120,7 @@ export const TransactionForm = ({
                   value={field.value}
                   onChange={field.onChange}
                   disabled={disabled}
+                  aria-label="Select Account"
                 />
               </FormControl>
             </FormItem>
@@ -133,33 +139,37 @@ export const TransactionForm = ({
                   placeholder="Select a Category"
                   options={categoryOptions}
                   onCreate={onCreateCategory}
-                  value={field.value}
+                  value={field.value || ""}
                   onChange={field.onChange}
                   disabled={disabled}
+                  aria-label="Select Category"
                 />
               </FormControl>
             </FormItem>
           )}
         />
 
+        {/* Payee Field */}
         <FormField
           name="payee"
           control={form.control}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Payeee</FormLabel>
+              <FormLabel>Payee</FormLabel>
               <FormControl>
                 <Input
+                  {...field}
                   disabled={disabled}
                   placeholder="Add Payee"
-                  {...field} 
+                  aria-label="Transaction Payee"
                 />
               </FormControl>
             </FormItem>
           )}
         />
 
-      <FormField
+        {/* Amount Field */}
+        <FormField
           name="amount"
           control={form.control}
           render={({ field }) => (
@@ -167,15 +177,17 @@ export const TransactionForm = ({
               <FormLabel>Amount</FormLabel>
               <FormControl>
                 <AmountInput
-                  {...field} 
+                  {...field}
                   disabled={disabled}
                   placeholder="0.00"
+                  aria-label="Transaction Amount"
                 />
               </FormControl>
             </FormItem>
           )}
         />
 
+        {/* Notes Field */}
         <FormField
           name="notes"
           control={form.control}
@@ -185,10 +197,11 @@ export const TransactionForm = ({
               <FormControl>
                 <Textarea
                   {...field}
-                  value={field.value ?? ""}
+                  value={field.value || ""}
                   disabled={disabled}
                   placeholder="Optional transaction notes"
-                  />
+                  aria-label="Transaction Notes"
+                />
               </FormControl>
             </FormItem>
           )}

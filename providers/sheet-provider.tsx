@@ -7,6 +7,7 @@ import { NewCategorySheet } from "@/features/categories/components/new-category-
 import { EditCategorySheet } from "@/features/categories/components/edit-category-sheet";
 import { useEffect, useState } from "react";
 import { NewTransactionSheet } from "@/features/transactions/components/new-transaction-sheet";
+import { EditTransactionSheet } from "@/features/transactions/components/edit-transaction-sheet";
 
 export const SheetProvider = () =>{
 
@@ -21,6 +22,7 @@ export const SheetProvider = () =>{
             <NewCategorySheet />
             <EditCategorySheet />
             <NewTransactionSheet />
+            <EditTransactionSheet />
         </>
     )
 }
