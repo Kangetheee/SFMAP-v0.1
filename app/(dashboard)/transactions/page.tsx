@@ -10,7 +10,8 @@ import { columns } from './columns';
 import { DataTable } from '@/components/data-table';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useBulkDeleteTransactions } from '@/features/transactions/api/use-bulk-delete-transactions';
-import UploadButton from './upload-button';
+import { UploadButton } from './upload-button';
+import { ImportCard } from './import-card';
 
 // const data = [
 //   {
@@ -40,7 +41,19 @@ const INTIAL_IMPORT_RESULTS = {
 
 const TransactionsPage = () => {
 
-  const [variant, setVariant] = useState<VARIANTS>(VARIANTS.LIST)
+  const [variant, setVariant] = useState<VARIANTS>(VARIANTS.LIST);
+  const [importResults, setImportResults] = useState(INTIAL_IMPORT_RESULTS);
+
+  const onUpload = (  results: typeof INTIAL_IMPORT_RESULTS) => {
+    console.log({ results })
+    setImportResults(results);
+    setVariant(VARIANTS.IMPORT);
+  };
+
+  const onCancelImport = () => {
+    setImportResults(INTIAL_IMPORT_RESULTS);
+    setVariant(VARIANTS.LIST)
+  }
 
   const newTransaction = useNewTransaction();
   const transactionsQuery = useGetTransactions();
@@ -71,9 +84,11 @@ const TransactionsPage = () => {
   if ( variant === VARIANTS.IMPORT) {
     return(
       <>
-        <div>
-          This is a Screen Import
-        </div>
+        <ImportCard
+          data={importResults.data}
+          onCancel={onCancelImport}
+          onSubmit={()=>{}} 
+        />
       </>
     )
   }
@@ -91,7 +106,7 @@ const TransactionsPage = () => {
                     Add New
                   </Button>
                   <UploadButton
-                    onUpload={()=>{}} 
+                    onUpload={onUpload} 
                   />
                 </div>
             </CardHeader>
