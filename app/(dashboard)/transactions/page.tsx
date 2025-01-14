@@ -1,6 +1,7 @@
 "use client";
 import { useNewTransaction } from '@/features/transactions/hooks/use-new-transactions'
 import { useGetTransactions } from '@/features/transactions/api/use-get-transactions';
+import { transactions as transactionSchema } from '@/db/schema';
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -64,6 +65,12 @@ const TransactionsPage = () => {
     transactionsQuery.isLoading ||
     deleteTransactions.isPending;
 
+  const onSubmitImport = async (
+    values: typeof transactionSchema.$inferInsert[],
+  ) => {
+    
+  };
+
   if(transactionsQuery.isLoading){
     return(
       <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-24">
@@ -87,7 +94,7 @@ const TransactionsPage = () => {
         <ImportCard
           data={importResults.data}
           onCancel={onCancelImport}
-          onSubmit={()=>{}} 
+          onSubmit={onSubmitImport} 
         />
       </>
     )
@@ -100,8 +107,8 @@ const TransactionsPage = () => {
                 <CardTitle className='text-xl line-clamp-1'>
                   Transaction History
                 </CardTitle>
-                <div className="flex items-center gap-x-2">
-                  <Button onClick={newTransaction.onOpen} size="sm">
+                <div className="flex flex-col lg:flex-row gap-y-2 items-center gap-x-2">
+                  <Button onClick={newTransaction.onOpen} size="sm" className='w-full lg:w-auto'>
                     <Plus className='size-4 mr-2'/>
                     Add New
                   </Button>
