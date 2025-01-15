@@ -133,78 +133,115 @@ const app = new Hono()
             return c.json({data});
         })
     .post(
-        "/bulk-delete",
-        clerkMiddleware(),
-        zValidator(
-            "json",
-            z.object({
-                ids: z.array(z.string()),
-            }),
-        ),
-            async (c) =>{
+            "/bulk-delete",
+            clerkMiddleware(),
+            zValidator(
+                "json",
+                z.object({
+                    ids: z.array(z.string()),
+                }),
+            ),
+            async (c) => {
                 const auth = getAuth(c);
                 const values = c.req.valid("json");
-
-                if(!auth?.userId){
-                    return c.json({ error: "Unauthorized"}, 401)
+        
+                console.log("Bulk Delete: Incoming Request Data", values); // Log the incoming data
+        
+                if (!auth?.userId) {
+                    console.log("Bulk Delete: Unauthorized Access");
+                    return c.json({ error: "Unauthorized" }, 401);
                 }
-
-                const transactionsToDelete = db.$with("transactions_to_delete").as(
-                    db.select({ id: transactions.id }).from(transactions)
-                        .innerJoin(accounts, eq(transactions.accountId, accounts.id))
-                        .where(
-                            and(
-                                inArray(transactions.id, values.ids),
-                                eq(accounts.userId, auth.userId)
+        
+                try {
+                    const transactionsToDelete = db.$with("transactions_to_delete").as(
+                        db.select({ id: transactions.id }).from(transactions)
+                            .innerJoin(accounts, eq(transactions.accountId, accounts.id))
+                            .where(
+                                and(
+                                    inArray(transactions.id, values.ids),
+                                    eq(accounts.userId, auth.userId)
+                                )
                             )
+                    );
+        
+                    const data = await db
+                        .with(transactionsToDelete)
+                        .delete(transactions)
+                        .where(
+                            inArray(transactions.id, sql`(select id from ${transactionsToDelete})`)
                         )
-                )
-
-                const data = await db
-                    .with(transactionsToDelete)
-                    .delete(transactions)
-                    .where(
-                        inArray(transactions.id, sql `(select id from 
-                            ${transactionsToDelete})`)
-                    )
-                    .returning({
-                        id: transactions.id,
-                    })
-                
-
-            return c.json({data});
+                        .returning({
+                            id: transactions.id,
+                        });
+        
+                    console.log("Bulk Delete: Delete Result", data); // Log the result
+        
+                    return c.json({ data });
+                } catch (error) {
+                    console.error("Bulk Delete: Error", error); // Log any errors
+                    return c.json({ error: "Failed to delete transactions" }, 500);
+                }
             }
         )
+        
     .post(
         "/bulk-create",
         clerkMiddleware(),
         zValidator(
             "json",
             z.array(
-                insertTransactionSchema.omit({
-                    id: true
-                }),
+            insertTransactionSchema.omit({
+                id: true,
+            }),
             ),
         ),
-        async ( c ) => {
+        async (c) => {
             const auth = getAuth(c);
             const values = c.req.valid("json");
-
+        
             if (!auth?.userId) {
-                return c.json({ error: "Unauthorized"}, 401);
+            return c.json({ error: "Unauthorized" }, 401);
             }
-
+        
+            try {
+            // Ensure all transactions belong to accounts owned by the user
+            const accountIds = values.map((v) => v.accountId);
+            const validAccounts = await db
+                .select({ id: accounts.id })
+                .from(accounts)
+                .where(
+                and(inArray(accounts.id, accountIds), eq(accounts.userId, auth.userId))
+                );
+        
+            const validAccountIds = validAccounts.map((a) => a.id);
+        
+            const filteredValues = values.filter((v) =>
+                validAccountIds.includes(v.accountId)
+            );
+        
+            if (filteredValues.length === 0) {
+                return c.json({ error: "No valid accounts found for transactions" }, 400);
+            }
+        
             const data = await db
                 .insert(transactions)
                 .values(
-                    values.map((value) => ({
-                        id: createId(),
-                        ...value,
-                    }))
+                filteredValues.map((value) => ({
+                    id: createId(),
+                    ...value,
+                }))
                 )
                 .returning();
+        
+            return c.json({ data });
+            } catch (error) {
+            console.error("Bulk Create Error:", error);
+            return c.json({ error: "Failed to create transactions", details: error.message }, 500);
+            }
         }
         )
+        
+        
     .patch(
         "/:id",
         clerkMiddleware(),

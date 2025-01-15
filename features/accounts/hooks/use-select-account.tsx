@@ -1,17 +1,16 @@
-import { JSX, useState } from "react";
+import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-  } from "@/components/ui/dialog"
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { useGetAccount } from "../api/use-get-account";
 import { useCreateAccount } from "../api/use-create-account";
+import { Select } from "@/components/select";
 
 
 export const useSelectAccount = () : [() => JSX.Element, () => Promise<unknown>] => {
@@ -27,8 +26,10 @@ export const useSelectAccount = () : [() => JSX.Element, () => Promise<unknown>]
         value: account.id
     }));
 
-    const [promise, setPromise] = useState<{ resolve: (value: boolean) =>
+    const [promise, setPromise] = useState<{ resolve: (value: string | undefined) =>
         void} | null> (null);
+    
+    const selectValue = useRef<string>();
 
     const confirm = () => new Promise((resolve, reject) =>{
         setPromise({ resolve });
@@ -39,22 +40,29 @@ export const useSelectAccount = () : [() => JSX.Element, () => Promise<unknown>]
     };
 
     const handleConfirm = () =>{
-        promise?.resolve(true);
+        promise?.resolve(selectValue.current);
         handleClose();
     };
 
     const handleCancel = () =>{
-        promise?.resolve(false);
+        promise?.resolve(undefined);
         handleClose();
     };
 
-    const ConfirmationDialog = () => (
+    const AccountDialog = () => (
         <Dialog open={promise !== null}>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>{title}</DialogTitle>
-                    <DialogDescription>{message}</DialogDescription>
+                    <DialogTitle>Select Account</DialogTitle>
+                    <DialogDescription>Please Select an account to proceed.</DialogDescription>
                 </DialogHeader>
+                <Select
+                    placeholder="Select an account"
+                    options={accountOptions}
+                    onCreate={onCreateAccount}
+                    onChange={(value) => selectValue.current = value}
+                    disabled={accountQuery.isLoading || accountMutation.isPending } 
+                />
                 <DialogFooter className="pt-2">
                     <Button
                         onClick={handleCancel}
@@ -72,5 +80,5 @@ export const useSelectAccount = () : [() => JSX.Element, () => Promise<unknown>]
         </Dialog>
     );
 
-    return [ConfirmationDialog, confirm];
+    return [AccountDialog, confirm];
 }

@@ -10,25 +10,21 @@ type RequestType = InferRequestType<typeof client.api.transactions["bulk-create"
 export const useBulkCreateTransactions = () => {
     const queryClient = useQueryClient();
 
-    const mutation = useMutation<
-        ResponseType, 
-        Error, 
-        RequestType
-    >({
+    const mutation = useMutation<ResponseType, Error, RequestType>({
         mutationFn: async (json) => {
             const response = await client.api.transactions["bulk-create"]["$post"]({ json });
             // if (!response.ok) {
-            //     throw new Error("Failed to delete transactions");
+            //     throw new Error("Failed to create transactions");
             // }
             return await response.json();
         },
         onSuccess: () => {
-            toast.success("Transactions successfully created.");
+            toast.success("Transactions successfully Create.");
             queryClient.invalidateQueries({ queryKey: ["transactions"] });
             // TODO: Also invalidate summary or other related queries
         },
         onError: (error) => {
-            toast.error(`Failed to create transactions: ${error.message}`);
+            toast.error(`Failed to Create transactions: ${error.message}`);
         },
     });
 
