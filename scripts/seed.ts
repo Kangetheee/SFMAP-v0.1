@@ -23,7 +23,7 @@ const SEED_ACCOUNTS = [
 ];
 
 const defaultTo = new Date();
-const defaultFrom = subDays(defaultTo, 90);
+const defaultFrom = subDays(defaultTo, 150);
 
 const SEED_TRANSACTIONS: typeof transactions.$inferSelect[] = [];
 

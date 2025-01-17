@@ -7,9 +7,10 @@ import {
     ResponsiveContainer,
     CartesianGrid
 } from "recharts";
+import { CustomTooltip } from "./custom-tooltip";
 
 type Props = {
-    data?: {
+    data: {
         date: string;
         income: number; 
         expenses: number;
@@ -17,7 +18,7 @@ type Props = {
 };
 
 
-export const AreaVariant = ({data}: Props) => {
+export const AreaVariant = ({ data }: Props) => {
     return(
         <ResponsiveContainer width="100%" height={350}>
             <AreaChart data={data}>
@@ -31,15 +32,19 @@ export const AreaVariant = ({data}: Props) => {
                         <stop offset="2%" stopColor="#f43f5e" stopOpacity={0.8} />
                         <stop offset="98%" stopColor="#f43f5e" stopOpacity={0} />
                     </linearGradient>
+
                 </defs>
                 <XAxis
                     axisLine={false}
                     tickLine={false}
                     dataKey="date"
-                    tickFormatter={(value) => format(value, "dd MMM")}
+                    tickFormatter={(value) => format(new Date(value), "dd MMM")}
                     style={{ font: "12px" }}
                     tickMargin={16}
                 />
+
+                <Tooltip content={<CustomTooltip />} />
+
                 <Area
                     type="monotone"
                     dataKey="income"
@@ -49,6 +54,7 @@ export const AreaVariant = ({data}: Props) => {
                     fill="url(#income)"
                     className="drop-shadow-sm"
                 />
+
                 <Area
                     type="monotone"
                     dataKey="expenses"
@@ -58,6 +64,7 @@ export const AreaVariant = ({data}: Props) => {
                     fill="url(#expenses)"
                     className="drop-shadow-sm"
                 />
+                
             </AreaChart>
         </ResponsiveContainer>
     ) 

@@ -11,6 +11,13 @@ type Props = {
 };
 
 // npm i recharts --legacy-peer-deps
+// const sampleData = [
+//     { date: "2025-01-01", income: 100, expenses: 50 },
+//     { date: "2025-01-02", income: 200, expenses: 80 },
+//   ];
+  
+  
+  
 
 export const Chart = ({ data=[]}: Props) =>{
     return(
@@ -27,7 +34,7 @@ export const Chart = ({ data=[]}: Props) =>{
                             <p className="text-muted-foreground text-sm">No Data for this Period</p>
                         </div>
                     ) : (
-                        <AreaVariant data={data}/>
+                        <AreaVariant data={data} />
                     )}
             </CardContent>
         </Card>
