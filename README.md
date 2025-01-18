@@ -1,36 +1,182 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# App v0.1
+
+## Table of Contents
+
+1. [Overview](#overview)
+2. [Features](#features)
+3. [Technologies Used](#technologies-used)
+4. [Getting Started](#getting-started)
+5. [Project Structure](#project-structure)
+6. [Deployment](#deployment)
+7. [Credits](#credits)
+8. [Demo](#demo)
+
+---
+
+## Overview
+
+**App v0.1** is a versatile application built using **Next.js**, **Drizzle ORM**, **TailwindCSS**, and a range of modern libraries to support seamless development and functionality. It integrates **Clerk Authentication**, **Radix UI components**, and **Zod validation** to create a robust, feature-rich app. The backend leverages **Neon Database** for PostgreSQL and includes utilities for database migration and seeding.
+
+[![App v0.1 Video Overview](https://img.youtube.com/vi/your-video-id/0.jpg)](https://www.youtube.com/watch?v=your-video-id)
+
+---
+
+## Features
+
+- **Authentication**: Secure user authentication via Clerk.
+- **Database Integration**: Managed using Drizzle ORM and Neon Database.
+- **UI Components**: Built with Radix UI for accessibility and customization.
+- **Form Validation**: Leveraging Zod and React Hook Form.
+- **Charts and Visualizations**: Dynamic data visualization with Recharts.
+- **Animations**: Smooth transitions using TailwindCSS Animate.
+
+---
+
+## Technologies Used
+
+- **Next.js**: Framework for server-side rendering and static site generation.
+- **Drizzle ORM**: Type-safe SQL ORM for database management.
+- **TailwindCSS**: Utility-first CSS framework for styling.
+- **Clerk**: Authentication solution for modern applications.
+- **Neon Database**: Serverless PostgreSQL database.
+- **Radix UI**: Accessible UI primitives for building interfaces.
+- **Zod**: Type-safe schema validation.
+- **React Query**: State management for server-side data.
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Ensure you have the following installed:
+
+- **Node.js** (>= 18.x)
+- **npm** or **yarn**
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/yourusername/app-v0.1.git
+   cd app-v0.1
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Set up environment variables:
+
+   Create a `.env` file in the root directory with the required configuration for database and authentication.
+
+4. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+5. Open your browser and navigate to `http://localhost:3000`.
+
+---
+
+## Project Structure
+
+```
+C:.
+├───.next
+│   ├───cache
+│   │   ├───swc
+│   │   │   └───plugins
+│   │   │       └───v7_windows_x86_64_4.0.0
+│   │   └───webpack
+│   │       ├───client-development
+│   │       ├───edge-server-development
+│   │       └───server-development
+│   ├───server
+│   │   ├───app
+│   │   │   └───(auth)
+│   │   │       └───sign-in
+│   │   │           └───[[...sign-in]]
+│   │   ├───static
+│   │   │   └───webpack
+│   │   └───vendor-chunks
+│   ├───static
+│   │   ├───chunks
+│   │   └───development
+│   └───types
+│       └───app
+│           └───(auth)
+│               └───sign-in
+│                   └───[[...sign-in]]
+├───app
+│   ├───(auth)
+│   │   ├───sign-in
+│   │   │   └───[[...sign-in]]
+│   │   └───sign-up
+│   │       └───[[...sign-up]]
+│   ├───(dashboard)
+│   │   ├───accounts
+│   │   ├───categories
+│   │   └───transactions
+│   └───api
+│       └───[[...route]]
+├───components
+│   └───ui
+├───db
+├───drizzle
+│   └───meta
+├───features
+│   ├───accounts
+│   │   ├───api
+│   │   ├───components
+│   │   └───hooks
+│   ├───categories
+│   │   ├───api
+│   │   ├───components
+│   │   └───hooks
+│   ├───summary
+│   │   └───api
+│   └───transactions
+│       ├───api
+│       ├───components
+│       └───hooks
+├───hooks
+├───lib
+├───providers
+├───public
+└───scripts
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deployment
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Build the project for production:
 
-## Learn More
+   ```bash
+   npm run build
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. Start the production server:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```bash
+   npm run start
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. Deploy to your hosting platform (e.g., Vercel, Netlify, or AWS).
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Credits
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Tutorials**: Various open-source contributions.
+- **Libraries and Frameworks**: Next.js, Drizzle ORM, Clerk, TailwindCSS.
+
+---
+
+## Demo
+
