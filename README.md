@@ -17,7 +17,7 @@
 
 **App v0.1** is a versatile application built using **Next.js**, **Drizzle ORM**, **TailwindCSS**, and a range of modern libraries to support seamless development and functionality. It integrates **Clerk Authentication**, **Radix UI components**, and **Zod validation** to create a robust, feature-rich app. The backend leverages **Neon Database** for PostgreSQL and includes utilities for database migration and seeding.
 
-[![App v0.1 Video Overview](https://img.youtube.com/vi/your-video-id/0.jpg)](https://www.youtube.com/watch?v=your-video-id)
+[![App v0.1 DashBoard Overview](https://github.com/user-attachments/assets/81045b57-593b-4de2-9f5a-0324ca7e1e0c)
 
 ---
 
