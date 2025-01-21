@@ -35,7 +35,7 @@ const routes = [
         label: "Category",
     },
     {
-        href: "/financial-literacy",
+        href: "/literacy",
         label: "Financial Literacy",
     },
     {
