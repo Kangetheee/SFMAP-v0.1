@@ -53,13 +53,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThirdwebProvider>
           <QueryProvider>
             <SheetProvider />
             <Toaster />
             {children}
           </QueryProvider>
-        </ThirdwebProvider>
       </body>
     </html>
     </ClerkProvider>
