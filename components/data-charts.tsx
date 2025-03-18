@@ -48,8 +48,13 @@ export const DataChart = () => {
                 {/* Spending Pie Chart */}
                 <SpendingPie data={data?.categories} />
 
+<<<<<<< HEAD
                 {/* Credit Score Progress Bar
                 <div className="bg-white shadow-md rounded-lg p-4">
+=======
+                {/* Credit Score Progress Bar */}
+                {/* <div className="bg-white shadow-md rounded-lg p-4">
+>>>>>>> 96fcce8914b5c267ae71ff1f62cb3deea8b11efb
                     <h3 className="text-lg font-semibold mb-2">Credit Score</h3>
                     <div className="w-full bg-gray-200 rounded-full h-4">
                         <div
