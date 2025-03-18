@@ -18,20 +18,6 @@ import { useSelectAccount } from '@/features/accounts/hooks/use-select-account';
 import { toast } from 'sonner';
 import { useBulkCreateTransactions } from '@/features/transactions/api/use-bulk-create-transactions';
 
-// const data = [
-//   {
-//     id: "728ed52f",
-//     amount: 100,
-//     status: "pending",
-//     email: "m@example.com",
-//   },
-//   {
-//     id: "728ed52f",
-//     amount: 50,
-//     status: "success",
-//     email: "m2@example.com",
-//   },
-// ];
 
 enum VARIANTS {
   LIST="LIST",

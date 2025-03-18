@@ -11,20 +11,6 @@ import { DataTable } from '@/components/data-table';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useBulkDeleteAccounts } from '@/features/accounts/api/use-bulk-delete';
 
-// const data = [
-//   {
-//     id: "728ed52f",
-//     amount: 100,
-//     status: "pending",
-//     email: "m@example.com",
-//   },
-//   {
-//     id: "728ed52f",
-//     amount: 50,
-//     status: "success",
-//     email: "m2@example.com",
-//   },
-// ];
 
 const AccountsPage = () => {
 

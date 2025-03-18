@@ -9,23 +9,22 @@ import { useAuth } from "@clerk/nextjs";  // Assume you are using Clerk for auth
 
 export const DataChart = () => {
     const { data, isLoading } = useGetSummary();
-    const [creditScore, setCreditScore] = useState<number | null>(null);
     const { userId } = useAuth();  // Get userId from authentication context
 
-    useEffect(() => {
-        const fetchCreditScore = async () => {
-            if (userId) {
-                try {
-                    const response = await axios.get(`/api/credit-score?userId=${userId}`);
-                    setCreditScore(response.data.creditScore);
-                } catch (error) {
-                    console.error('Failed to fetch credit score', error);
-                }
-            }
-        };
+    // useEffect(() => {
+    //     const fetchCreditScore = async () => {
+    //         if (userId) {
+    //             try {
+    //                 const response = await axios.get(`/api/credit-score?userId=${userId}`);
+    //                 setCreditScore(response.data.creditScore);
+    //             } catch (error) {
+    //                 console.error('Failed to fetch credit score', error);
+    //             }
+    //         }
+    //     };
 
-        fetchCreditScore();
-    }, [userId]);
+    //     fetchCreditScore();
+    // }, [userId]);
 
     if (isLoading) {
         return (
@@ -49,7 +48,7 @@ export const DataChart = () => {
                 {/* Spending Pie Chart */}
                 <SpendingPie data={data?.categories} />
 
-                {/* Credit Score Progress Bar */}
+                {/* Credit Score Progress Bar
                 <div className="bg-white shadow-md rounded-lg p-4">
                     <h3 className="text-lg font-semibold mb-2">Credit Score</h3>
                     <div className="w-full bg-gray-200 rounded-full h-4">
@@ -61,7 +60,7 @@ export const DataChart = () => {
                     <p className="mt-2 text-sm text-gray-600">
                         Your current credit score is <span className="font-bold">{creditScore || 0}</span>.
                     </p>
-                </div>
+                </div> */}
             </div>
         </div>
     );
