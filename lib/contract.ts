@@ -1,6 +1,5 @@
 import { ethers } from "ethers"
 
-<<<<<<< HEAD
 // ABI for the LoanManagementSystem contract
 export const LoanManagementSystemABI = [
   "function owner() view returns (address)",
@@ -41,7 +40,6 @@ export async function getContract(signer: ethers.Signer | null) {
   // Validate contract address
   if (!contractAddress || contractAddress === "0x0000000000000000000000000000000000000000") {
     console.error("Contract address is not set or is invalid")
-=======
 // ABI for the LoanManagement contract
 const loanABI = [
   "function numberOfLoans() view returns (uint256)",
@@ -60,16 +58,13 @@ const CONTRACT_ADDRESS = "0xe46B96B92543AA5E843d21A1bbE63320Eb1e9f49" // Replace
 export async function getLoanContract() {
   if (typeof window === "undefined" || typeof window.ethereum === "undefined") {
     console.error("Ethereum object not found, install MetaMask")
->>>>>>> 96fcce8914b5c267ae71ff1f62cb3deea8b11efb
     return null
   }
 
   try {
-<<<<<<< HEAD
     return new ethers.Contract(contractAddress, LoanManagementSystemABI, signer)
   } catch (error) {
     console.error("Error creating contract instance:", error)
-=======
     // Get the provider from window.ethereum
     const provider = new ethers.BrowserProvider(window.ethereum)
 
@@ -82,12 +77,10 @@ export async function getLoanContract() {
     return contract
   } catch (error) {
     console.error("Error getting contract:", error)
->>>>>>> 96fcce8914b5c267ae71ff1f62cb3deea8b11efb
     return null
   }
 }
 
-<<<<<<< HEAD
 // Check if an address is the contract owner
 export async function isContractOwner(contract: ethers.Contract | null, address: string): Promise<boolean> {
   if (!contract || !address) return false
@@ -162,5 +155,3 @@ export function isValidAddress(address: string): boolean {
   return /^0x[a-fA-F0-9]{40}$/.test(address)
 }
 
-=======
->>>>>>> 96fcce8914b5c267ae71ff1f62cb3deea8b11efb

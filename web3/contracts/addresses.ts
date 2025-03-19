@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 export const LOAN_MANAGEMENT_ABI = [
     {
       "inputs": [
@@ -370,8 +369,6 @@ export const LOAN_MANAGEMENT_ADDRESS = "0xe46b96b92543aa5e843d21a1bbe63320eb1e9f
 export const NFT_COLLECTION_ADDRESS = "0xa1d7d9a578695ed3334cd09e6067ed15ade0c2dd"
 
 export const RPC_URL = "https://eth-mainnet.g.alchemy.com/v2/uYkMqZaAvVzZ52R0WZqd-9-geTqB213i"
-=======
 // Contract addresses
 export const LOAN_MANAGEMENT_ADDRESS = "0xe46B96B92543AA5E843d21A1bbE63320Eb1e9f49" // Replace with actual contract address
 export const NFT_COLLECTION_ADDRESS = "0xa1d7d9a578695Ed3334cd09e6067eD15ADe0c2dD" // Replace with actual contract address
->>>>>>> 96fcce8914b5c267ae71ff1f62cb3deea8b11efb
