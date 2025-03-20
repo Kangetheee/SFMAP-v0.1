@@ -12,20 +12,7 @@ export const DataChart = () => {
     const [creditScore, setCreditScore] = useState<number | null>(null);
     const { userId } = useAuth();  // Get userId from authentication context
 
-    // useEffect(() => {
-    //     const fetchCreditScore = async () => {
-    //         if (userId) {
-    //             try {
-    //                 const response = await axios.get(`/api/credit-score?userId=${userId}`);
-    //                 setCreditScore(response.data.creditScore);
-    //             } catch (error) {
-    //                 console.error('Failed to fetch credit score', error);
-    //             }
-    //         }
-    //     };
-
-    //     fetchCreditScore();
-    // }, [userId]);
+    
 
     if (isLoading) {
         return (
