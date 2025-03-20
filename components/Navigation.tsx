@@ -40,10 +40,6 @@ const mainRoutes = [
     href: "/literacy",
     label: "Financial Literacy",
   },
-  {
-    href: "/settings",
-    label: "Settings",
-  },
 ];
 
 // Loan sub-routes
